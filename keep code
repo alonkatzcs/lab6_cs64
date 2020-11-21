@@ -1,0 +1,29 @@
+MaxLoop:
+
+    ble $s1, $zero, ReturnMax
+
+    lw $t0, 0($s0)
+    lw $t2, 0($s2)
+
+    bgt $t0, $t2, NewMax
+
+PrintValues:
+
+    move $a0, $t0
+    li $v0, 1
+    syscall
+    move $a0, $t2
+    syscall
+    
+    jal ConventionCheck
+
+    addi $s1, $s1, -1
+    addiu $s0, $s0, 4
+
+    j MaxLoop
+NewMax:
+
+    move $t2, $t0
+
+    j PrintValues
+
